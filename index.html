@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Clock</title>
+</head>
+<body>
+    <div class="clock">
+        <div class="hour">
+            <div class="hr" id="hr"></div>
+        </div>
+        <div class="min">
+            <div class="mn" id="mn"></div>
+        </div>
+        <div class="sec">
+            <div class="sc" id="sc"></div>
+        </div>
+    </div>
+
+    <div id="digitalClock">
+        <div id="hour"></div>
+        <div id="minutes"></div>
+        <div id="seconds"></div>
+        <div id="ampm"></div>
+    </div>
+
+
+    <div class="stop">
+        <button onclick="clearInterval(intId)">Stop time</button>
+    </div>
+
+    <script>
+        const hr = document.querySelector("#hr");
+        const mn = document.querySelector("#mn");
+        const sc = document.querySelector("#sc");
+
+        setInterval(() => {
+            let day = new Date();
+            let hh = day.getHours() * 30;
+            let mm = day.getMinutes() * 6;
+            let ss = day.getSeconds() * 6;
+
+            hr.style.transform = `rotateZ(${hh+(mm/12)}deg)`;
+            mn.style.transform = `rotateZ(${mm}deg)`;
+            sc.style.transform = `rotateZ(${ss}deg)`;
+
+            let hour = document.querySelector("#hour");
+            let minutes = document.querySelector("#minutes");
+            let seconds = document.querySelector("#seconds");
+            let ampm = document.querySelector("#ampm");
+
+            let h = new Date().getHours();
+            let m = new Date().getMinutes();
+            let s = new Date().getSeconds();
+            let am = "AM";
+            if(h >11){
+                am = "PM";
+            }
+
+            //add zero before single digit Numbers
+             h = (h < 10) ? "0" + h : h
+             m = (m < 10) ? "0" + m : m
+             s = (s < 10) ? "0" + s : s
+
+            hour.innerHTML = h + ":";
+            minutes.innerHTML = m + ":";
+            seconds.innerHTML = s + "&nbsp";
+            ampm.innerHTML = am;
+        });
+
+        var count = 0;
+        var intId = setInterval(counter, 50);
+
+        function counter() {
+            if(count >= 99) {
+                clearInterval(intId);
+            }
+            console.log(++count);
+        }
+
+    </script>
+</body>
+</html>
